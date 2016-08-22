@@ -224,8 +224,8 @@ namespace geolocation
                 CmdRunner.ExecuteCommandWithStringResult(
                     string.Format(
                         "{0} mkatt att:{1}@{2}",
-                        attrName,
                         Path.GetFileName(cmCommand),
+                        attrName,
                         repo),
                     Environment.CurrentDirectory,
                     true);
