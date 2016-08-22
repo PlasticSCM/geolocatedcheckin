@@ -6,16 +6,15 @@ namespace geolocation
 {
     class Program
     {
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
-            Console.WriteLine("Displaying location updates. Press any key to exit...");
-
             GeoCoordinate location = CalculateLocation.Get();
 
             if (location == null)
             {
                 // failed to retrieve the location
-                return;
+                Console.WriteLine("Failed to retrieve the location");
+                return 1;
             }
 
             var known = KnownLocations.Find(location, 2000);
@@ -24,19 +23,15 @@ namespace geolocation
             {
                 Console.WriteLine("You are checking in from {0}", known.LocationName);
 
-                return;
+                // Create an attribute entry associated to the cset
+
+                return 0;
             }
 
             // unkwnown location, add to the list
             string address = GoogleMaps.GetAddressFrom(location);
 
-            Console.WriteLine("This location is not close ({0} m) to any previous location you used before.", 2000);
-            Console.WriteLine("Lat: {0}, Lon: {1}. {2}",
-                location.Latitude, location.Longitude, address);
-
-            Console.Write("Enter a new name for the location: ");
-
-            string newName = Console.ReadLine();
+            string newName = AskNewLocation.Ask(location, address);
 
             var newLocation = new KnownLocations.GeolocatedCheckin()
             {
@@ -48,7 +43,22 @@ namespace geolocation
 
             KnownLocations.AddNew(newLocation);
 
-            Console.WriteLine("{0} correctly added", newLocation.LocationName);
+            return 0;
+        }
+
+        static string GetChangeset()
+        {
+            // input is something like
+            // cs:23@br:/main@rep:default@repserver:DARKTOWER:8084; cs:19@br:/main@rep:secondrep@repserver:DARKTOWER:8084
+
+            // check https://www.plasticscm.com/documentation/triggers/plastic-scm-version-control-triggers-guide.shtml#Checkin
+            string csetEnv = Environment.GetEnvironmentVariable("PLASTIC_CHANGESET");
+
+            string[] csets = csetEnv.Split(
+                new char[]{';'},
+                StringSplitOptions.RemoveEmptyEntries);
+
+            return csets[0];
         }
     }
 }
