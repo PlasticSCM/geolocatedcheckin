@@ -40,6 +40,7 @@ And once the attribute is created by the trigger, a new notification will show u
 ![Notification of a new geoloc attribute](https://raw.githubusercontent.com/PlasticSCM/geolocatedcheckin/master/screenshots/notification.png)
 
 If the location where you are checking in is new (you never checked in from there), then the trigger will ask you to enter a name for the new location:
+
 ![Enter a name for the new geolocation](https://raw.githubusercontent.com/PlasticSCM/geolocatedcheckin/master/screenshots/enter-new-location.png)
 
 The known locations are stored on c:\Users\<your-user-name>\AppData\Local\plastic4\geolocatedcheckins.conf
