@@ -2,6 +2,8 @@
 using System.Xml;
 using System.Device.Location;
 
+using Codice.CmdRunner;
+
 namespace geolocation
 {
     class Program
@@ -13,7 +15,7 @@ namespace geolocation
             if (location == null)
             {
                 // failed to retrieve the location
-                Console.WriteLine("Failed to retrieve the location");
+                Notify("Error", "Failed to retrieve the location");
                 return 1;
             }
 
@@ -21,7 +23,15 @@ namespace geolocation
 
             if (known != null)
             {
-                Console.WriteLine("You are checking in from {0}", known.LocationName);
+                Notify(
+                    "Checkin from " + known.LocationName,
+                    string.Format(
+                        "You are checking in from {0}" + Environment.NewLine +
+                        "Lat: {1}. Lon: {2}" + Environment.NewLine +
+                        "Address: {3}",
+                        known.LocationName,
+                        known.Latitude, known.Longitude,
+                        known.FullAddress));
 
                 // Create an attribute entry associated to the cset
 
@@ -43,22 +53,60 @@ namespace geolocation
 
             KnownLocations.AddNew(newLocation);
 
+            Notify(
+                "Checkin from new location: " + newLocation.LocationName,
+                string.Format("You are checking in from {0}", newLocation.LocationName));
+
             return 0;
+        }
+
+        static void Notify(string title, string msg)
+        {
+            Notification.Show(title, msg);
+        }
+
+        static void NotifyCoordinates(KnownLocations.GeolocatedCheckin gci)
+        {
+
         }
 
         static string GetChangeset()
         {
-            // input is something like
-            // cs:23@br:/main@rep:default@repserver:DARKTOWER:8084; cs:19@br:/main@rep:secondrep@repserver:DARKTOWER:8084
+            // Get a path from the stdin
 
-            // check https://www.plasticscm.com/documentation/triggers/plastic-scm-version-control-triggers-guide.shtml#Checkin
-            string csetEnv = Environment.GetEnvironmentVariable("PLASTIC_CHANGESET");
+            string path = Console.ReadLine();
 
-            string[] csets = csetEnv.Split(
-                new char[]{';'},
-                StringSplitOptions.RemoveEmptyEntries);
+            string changeset = CmdRunner.ExecuteCommandWithStringResult(
+                string.Format("cm status {0}", path),
+                Environment.CurrentDirectory,
+                true);
 
-            return csets[0];
+            // will be something as cs:6982102@rep:codice@repserver:diana.codicefactory.com:9095
+
+            return changeset;
+        }
+
+        static void CreateAttributeIfNeeded(string repo)
+        {
+            string result = CmdRunner.ExecuteCommandWithStringResult(
+                string.Format(
+                    "cm find attributetype where name='geoloc' on repository '{0}' --nototal",
+                    repo) + " --format={name}",
+                Environment.CurrentDirectory,
+                true);
+
+            if (result.IndexOf("geoloc") >= 0)
+                return;
+
+            CmdRunner.ExecuteCommandWithStringResult(
+                string.Format("cm mkatt att:geoloc@{0}", repo),
+                Environment.CurrentDirectory,
+                true);
+        }
+
+        static void SetAttribute(string cset, string repo, string value)
+        {
+            // cm statt att:geotest@quake@localhost:6060 cs:711@quake@localhost:6060 "home - {lat} {lon}"
         }
     }
 }

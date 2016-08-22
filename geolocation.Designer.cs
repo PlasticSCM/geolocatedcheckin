@@ -69,5 +69,15 @@ namespace geolocation {
                 return ((System.Drawing.Icon)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_location_60x60 {
+            get {
+                object obj = ResourceManager.GetObject("icon_location_60x60", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
