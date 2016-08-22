@@ -203,18 +203,6 @@ namespace geolocation
                 // coordinates retrieved
 
                 return mLocation;
-
-/*                Console.WriteLine("Distance to home {0}",
-                    e.Position.Location.GetDistanceTo(new GeoCoordinate(41.6591875, -4.7339531)));
-
-                Console.WriteLine("Distance to work {0}",
-                    e.Position.Location.GetDistanceTo(new GeoCoordinate(41.519049, -4.7176837)));
-
-                Console.WriteLine(
-                    "Latitude:  " + e.Position.Location.Latitude.ToString() +
-                    " Longitude: " + e.Position.Location.Longitude.ToString());
-
-                SolveUsingGoogle(e.Position.Location.Latitude, e.Position.Location.Longitude);*/
             }
 
             static void PositionChangedEvent(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
