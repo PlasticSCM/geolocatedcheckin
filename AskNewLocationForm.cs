@@ -20,17 +20,13 @@ namespace geolocation
 
             InitializeComponent();
 
-            AddressTextbox.Focus();
+            NewNameTextBox.Select();
+            NewNameTextBox.Focus();
         }
 
         internal string GetNewName()
         {
             return mResult;
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void OkButton_Click(object sender, EventArgs e)
