@@ -34,7 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>App.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -61,6 +62,11 @@
     <Compile Include="CmdRunner\CodiceCmdRunner.cs" />
     <Compile Include="CmdRunner\LaunchCommand.cs" />
     <Compile Include="CmdRunner\PlatformIdentifier.cs" />
+    <Compile Include="geolocation.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>geolocation.resx</DependentUpon>
+    </Compile>
     <Compile Include="GoogleMaps.cs" />
     <Compile Include="KnownLocations.cs" />
     <Compile Include="Program.cs" />
@@ -72,6 +78,10 @@
   <ItemGroup>
     <EmbeddedResource Include="AskNewLocationForm.resx">
       <DependentUpon>AskNewLocationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="geolocation.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>geolocation.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

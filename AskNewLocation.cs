@@ -9,6 +9,8 @@ namespace geolocation
         {
             var form = new AskNewLocationForm(location, addr);
 
+            form.Icon = geolocation.App;
+
             Application.Run(form);
 
             return form.GetNewName();
