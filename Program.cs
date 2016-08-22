@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Xml;
 using System.Device.Location;
 
 using Codice.CmdRunner;
