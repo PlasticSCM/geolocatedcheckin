@@ -14,6 +14,8 @@ namespace geolocation
         {
             var form = new NotificationForm(title, text);
 
+            form.Icon = geolocation.App;
+
             Application.Run(form);
         }
     }
