@@ -27,4 +27,22 @@ Internally we use 'bcm' instead of cm. If that's your case too, or if you need t
 As you can see, you can also customize the attribute name.
 
 # How it works
-        
+Once you install the trigger, each time you checkin it will try to create a attribute/value (attribute is 'geoloc' by default, but you can change it) assigned to the new changeset with the information of your location.
+
+You will see something like this in the attributes view of your changeset:
+
+![Attribute view showing the geoloc entry](https://raw.githubusercontent.com/PlasticSCM/geolocatedcheckin/master/screenshots/attribute-view.png)
+
+As you can see it associates a short name (home in this case) to the location.
+
+And once the attribute is created by the trigger, a new notification will show up on the bottom right corner of your screen as follows:
+
+![Notification of a new geoloc attribute](https://raw.githubusercontent.com/PlasticSCM/geolocatedcheckin/master/screenshots/notification.png)
+
+If the location where you are checking in is new (you never checked in from there), then the trigger will ask you to enter a name for the new location:
+![Enter a name for the new geolocation](https://raw.githubusercontent.com/PlasticSCM/geolocatedcheckin/master/screenshots/enter-new-location.png)
+
+The known locations are stored on c:\Users\<your-user-name>\AppData\Local\plastic4\geolocatedcheckins.conf
+
+# Remarks
+It is important to run the trigger as a client-side trigger, otherwise it won't be able to correctly interact with your desktop.
