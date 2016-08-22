@@ -45,13 +45,7 @@ namespace geolocation
             {
                 Notify(
                     "Checkin from " + known.LocationName,
-                    string.Format(
-                        "You are checking in from {0}" + Environment.NewLine +
-                        "Lat: {1}. Lon: {2}" + Environment.NewLine +
-                        "Address: {3}",
-                        known.LocationName,
-                        known.Latitude, known.Longitude,
-                        known.FullAddress));
+                    GetPrettyLocation(known));
 
                 // Create an attribute entry associated to the cset
                 PlasticAutomation.AddAttribute(cla.CmCommand, cla.Attribute, known);
@@ -59,7 +53,7 @@ namespace geolocation
                 return 0;
             }
 
-            // unkwnown location, add to the list
+            // unknown location, add to the list
             string address = GoogleMaps.GetAddressFrom(location);
 
             string newName = AskNewLocation.Ask(location, address);
@@ -76,11 +70,22 @@ namespace geolocation
 
             Notify(
                 "Checkin from new location: " + newLocation.LocationName,
-                string.Format("You are checking in from {0}", newLocation.LocationName));
+                GetPrettyLocation(newLocation));
 
             PlasticAutomation.AddAttribute(cla.CmCommand, cla.Attribute, newLocation);
 
             return 0;
+        }
+
+        static string GetPrettyLocation(KnownLocations.GeolocatedCheckin geoci)
+        {
+            return string.Format(
+                "You are checking in from {0}" + Environment.NewLine +
+                "Lat: {1}. Lon: {2}" + Environment.NewLine +
+                "Address: {3}",
+                geoci.LocationName,
+                geoci.Latitude, geoci.Longitude,
+                geoci.FullAddress);
         }
 
         class CommandLineArguments
@@ -114,18 +119,17 @@ namespace geolocation
                         case "--test":
                             result.Test = true;
                             break;
+                        case "help":
+                            return null;
                     }
                 }
-
-                if (i == 0)
-                    return null;
 
                 return result;
             }
 
             static internal void ShowUsage()
             {
-                Console.WriteLine("geolocation [--cm command]");
+                Console.WriteLine("geolocation [help] | [--cm command]");
                 Console.WriteLine("\t--cm command:           to specify an alternative cm. We use it internally");
                 Console.WriteLine("\t--attribute attrname:   to specify the attr. 'geoloc' is the default");
             }
