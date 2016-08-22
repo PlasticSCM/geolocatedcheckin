@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalculateLocation.cs" />
+    <Compile Include="GoogleMaps.cs" />
     <Compile Include="KnownLocations.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

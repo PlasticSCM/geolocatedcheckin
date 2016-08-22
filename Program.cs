@@ -28,7 +28,7 @@ namespace geolocation
             }
 
             // unkwnown location, add to the list
-            string address = SolveUsingGoogle(location);
+            string address = GoogleMaps.GetAddressFrom(location);
 
             Console.WriteLine("This location is not close ({0} m) to any previous location you used before.", 2000);
             Console.WriteLine("Lat: {0}, Lon: {1}. {2}",
@@ -49,19 +49,6 @@ namespace geolocation
             KnownLocations.AddNew(newLocation);
 
             Console.WriteLine("{0} correctly added", newLocation.LocationName);
-        }
-
-        static string SolveUsingGoogle(GeoCoordinate location)
-        {
-            XmlDocument xDoc = new XmlDocument();
-            xDoc.Load(string.Format(
-                "http://maps.googleapis.com/maps/api/geocode/xml?latlng={0},{1}&sensor=false",
-                location.Latitude, location.Longitude));
-
-            XmlNodeList xNodelst = xDoc.GetElementsByTagName("result");
-            XmlNode xNode = xNodelst.Item(0);
-
-            return xNode.SelectSingleNode("formatted_address").InnerText;
         }
     }
 }
