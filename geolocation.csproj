@@ -56,6 +56,11 @@
       <DependentUpon>AskNewLocationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CalculateLocation.cs" />
+    <Compile Include="CmdRunner\BaseCmdRunner.cs" />
+    <Compile Include="CmdRunner\CmdRunner.cs" />
+    <Compile Include="CmdRunner\CodiceCmdRunner.cs" />
+    <Compile Include="CmdRunner\LaunchCommand.cs" />
+    <Compile Include="CmdRunner\PlatformIdentifier.cs" />
     <Compile Include="GoogleMaps.cs" />
     <Compile Include="KnownLocations.cs" />
     <Compile Include="Program.cs" />
@@ -72,6 +77,7 @@
   <ItemGroup>
     <Content Include="App.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
