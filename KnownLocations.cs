@@ -18,7 +18,7 @@ namespace geolocation
 
         static internal GeolocatedCheckin Find(GeoCoordinate location, double range)
         {
-            var list = Load(@"c:\users\pablo\appdata\local\plastic4\geolocatedcheckins.conf");
+            var list = Load(GetFilePath());
 
             if (list == null)
                 return null;
@@ -37,11 +37,12 @@ namespace geolocation
 
         static internal void AddNew(GeolocatedCheckin newLocation)
         {
-            string file = @"c:\users\pablo\appdata\local\plastic4\geolocatedcheckins.conf";
+            string file = GetFilePath();
 
             using (StreamWriter writer = new StreamWriter(file, true))
             {
-                writer.WriteLine("LocationName={0};Lat={1};Lon={2};Address={3}",
+                writer.WriteLine(
+                    "LocationName={0};Lat={1};Lon={2};Address={3}",
                     newLocation.LocationName,
                     newLocation.Latitude,
                     newLocation.Longitude,
@@ -69,7 +70,7 @@ namespace geolocation
                         continue;
                     }
 
-                    //LocationName=home;Lat=xxxx;Lon=yyyy;Address=sssss
+                    // LocationName=home;Lat=xxxx;Lon=yyyy;Address=sssss
                     try
                     {
                         GeolocatedCheckin parsed = ParseLine(line);
@@ -107,6 +108,13 @@ namespace geolocation
                 Longitude = Double.Parse(GetValue(line, lonPos + Lon.Length, addrPos)),
                 FullAddress = GetValue(line, addrPos + Address.Length, line.Length)
             };
+        }
+
+        static string GetFilePath()
+        {
+            return Path.Combine(
+                Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData),
+                @"plastic4\geolocatedcheckins.conf");
         }
 
         static string GetValue(string s, int start, int end)
