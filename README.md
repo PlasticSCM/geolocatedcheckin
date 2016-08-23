@@ -1,7 +1,7 @@
 # geolocatedcheckin
-Windows trigger to track checkins by physical location based on GeoCoordinateWatcher.
+Windows trigger for Plastic SCM version control to track checkins by physical location based on GeoCoordinateWatcher.
 
-If you work distributed from different locations, you can use this trigger to track where you were working from. It uses the GeoCoordinateWatcher API and also shows how to automate some simple operations with CmdRunner.
+If you work distributed from different locations, you can use this trigger to track where you were doing checkins from. It uses the GeoCoordinateWatcher API and also shows how to automate some simple operations with CmdRunner.
 
 # How to install it
 Get the geolocation.exe from releases and then install your trigger as follows:
