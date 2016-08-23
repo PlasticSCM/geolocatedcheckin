@@ -45,5 +45,7 @@ If the location where you are checking in is new (you never checked in from ther
 
 The known locations are stored on c:\Users\<your-user-name>\AppData\Local\plastic4\geolocatedcheckins.conf
 
+Every new location is compared with the known ones: if it is closer than 2000 m, then it is considered the same location (you can easily customize this in the code).
+
 # Remarks
 It is important to run the trigger as a client-side trigger, otherwise it won't be able to correctly interact with your desktop.
